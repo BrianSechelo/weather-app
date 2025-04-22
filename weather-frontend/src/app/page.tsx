@@ -7,9 +7,9 @@ import WeatherDisplay from '../components/WeatherDisplay';
 export default function Home() {
   const [weatherData, setWeatherData] = useState(null);
 
-  const fetchWeather = async (city: string) => {
+  const fetchWeather = async (city: string, unit: string) => {
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/weather?city=${city}`);
+      const res = await fetch(`http://127.0.0.1:8000/api/weather?city=${city}&unit=${unit}`);
       if (!res.ok) throw new Error('Failed to fetch weather');
       const data = await res.json();
       setWeatherData(data);

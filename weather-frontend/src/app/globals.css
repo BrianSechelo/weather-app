@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'rippleui/dist/ripple.css';
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
