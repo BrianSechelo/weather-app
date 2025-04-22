@@ -6,6 +6,7 @@ type WeatherData = {
     wind_speed: number;
     description: string;
     icon: string;
+    unit: string;
   };
   
   type Props = {
@@ -35,7 +36,7 @@ type WeatherData = {
   className="mx-auto mb-4"
 />
   
-        <p><strong>Temperature:</strong> {data.temperature}°C</p>
+        <p><strong>Temperature:</strong> {data.temperature}°{data.unit === 'imperial' ? 'F' : 'C'}</p>
         <p><strong>Humidity:</strong> {data.humidity}%</p>
         <p><strong>Wind Speed:</strong> {data.wind_speed} m/s</p>
         <p><strong>Description:</strong> {data.description}</p>

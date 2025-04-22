@@ -74,6 +74,7 @@ class WeatherController extends Controller
             'humidity' => $weatherResponse['main']['humidity'],
             'wind_speed' => $weatherResponse['wind']['speed'],
             'icon' => $weatherResponse['weather'][0]['icon'],
+            'unit' => $request->query('unit', 'metric'),
             'forecast' => $forecast
         ]);
     }
