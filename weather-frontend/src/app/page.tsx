@@ -1,11 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import ForecastDisplay from '../components/ForecastDisplay';
 import WeatherForm from '../components/WeatherForm';
 import WeatherDisplay from '../components/WeatherDisplay';
 
 export default function Home() {
   const [weatherData, setWeatherData] = useState(null);
+  const [forecast, setForecast] = useState([]);
 
   const fetchWeather = async (city: string, unit: string) => {
     try {
@@ -13,6 +15,7 @@ export default function Home() {
       if (!res.ok) throw new Error('Failed to fetch weather');
       const data = await res.json();
       setWeatherData(data);
+      setForecast(data.forecast);
     } catch (error) {
       console.error('Error fetching weather:', error);
     }
@@ -23,6 +26,7 @@ export default function Home() {
       <h1 className="text-3xl font-bold mb-6">Weather App</h1>
       <WeatherForm onWeatherFetched={fetchWeather} />
       {weatherData && <WeatherDisplay data={weatherData} />}
+      {forecast.length > 0 && <ForecastDisplay forecast={forecast} />}
     </main>
   );
 }
