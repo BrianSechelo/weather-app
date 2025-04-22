@@ -8,9 +8,12 @@ import WeatherDisplay from '../components/WeatherDisplay';
 export default function Home() {
   const [weatherData, setWeatherData] = useState(null);
   const [forecast, setForecast] = useState([]);
+  const [error, setError] = useState('');
 
+  
   const fetchWeather = async (city: string, unit: string) => {
     try {
+      setError('');
       const res = await fetch(`http://127.0.0.1:8000/api/weather?city=${city}&unit=${unit}`);
       if (!res.ok) throw new Error('Failed to fetch weather');
       const data = await res.json();
@@ -18,6 +21,7 @@ export default function Home() {
       setForecast(data.forecast);
     } catch (error) {
       console.error('Error fetching weather:', error);
+      setError('City not found. Please try again.');
     }
   };
 
@@ -27,6 +31,7 @@ export default function Home() {
       <WeatherForm onWeatherFetched={fetchWeather} />
       {weatherData && <WeatherDisplay data={weatherData} />}
       {forecast.length > 0 && <ForecastDisplay forecast={forecast} />}
+      {error && <p className="text-red-500 font-semibold mt-4">{error}</p>}
     </main>
   );
 }
