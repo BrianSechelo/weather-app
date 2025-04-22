@@ -2,16 +2,17 @@
 import { useState } from 'react';
 
 type Props = {
-  onWeatherFetched: (city: string) => void;
+  onWeatherFetched: (city: string,  unit: string) => void;
 };
 
 export default function WeatherForm({ onWeatherFetched }: Props) {
   const [city, setCity] = useState('');
+  const [unit, setUnit] = useState('metric');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (city.trim()) {
-      onWeatherFetched(city.trim());
+      onWeatherFetched(city.trim(), unit);
     }
   };
 
@@ -24,6 +25,14 @@ export default function WeatherForm({ onWeatherFetched }: Props) {
         value={city}
         onChange={(e) => setCity(e.target.value)}
       />
+      <select
+        className="select select-bordered"
+        value={unit}
+        onChange={(e) => setUnit(e.target.value)}
+      >
+        <option value="metric">°C</option>
+        <option value="imperial">°F</option>
+      </select>
       <button className="btn btn-primary" type="submit">
         Get Weather
       </button>
